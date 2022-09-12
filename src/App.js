@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Form from './template/Form'
+import Card from './template/Card'
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           Learn React
         </a>*/}
       </header>
-        <Form />
+        <Card />
+        {/*<Form />*/}
     </div>
   );
 }
