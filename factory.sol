@@ -6,7 +6,7 @@ import "@openzeppelin/contracts@4.7.3/access/Ownable.sol";
 
 contract MyToken is ERC20, Ownable {
     uint256 public totalFunds = 0;
-    uint public timeToDeadline = days; 
+    uint public timeToDeadline = 30 days; 
     //uint public fundraiseStartTime = block.timestamp;
     uint public fundraiseStartTime = 70 days; 
     uint public fundraiseEndTime = fundraiseStartTime + timeToDeadline;
