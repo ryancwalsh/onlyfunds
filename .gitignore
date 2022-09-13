@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+nearinitiator-857f2-firebase-adminsdk-gswqs-1bc98f2f6d.json
+/venv
+=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -5,7 +9,6 @@
 /.pnp
 .pnp.js
 
-/src/template
 /src/components/FireStore.js
 
 # testing
@@ -25,3 +28,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+>>>>>>> 4430321ecb36431de260d6366b39daceb8039122
