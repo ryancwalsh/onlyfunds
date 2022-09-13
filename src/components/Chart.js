@@ -14,9 +14,11 @@ class Chart extends Component {
         if (this.props.project === undefined) return
         console.log('PROJECT')
         console.log(this.props.project)
+        console.log('-------')
+        const totallyFunded = this.props.project.pledged >= this.props.project.softCap
         let data = [
-            { title: "Goal", value: this.props.project.softCap, color: "#000000" },
-            { title: "Funded", value: this.props.project.softCap - this.props.project.pledged, color: "#5850EC" },
+            { title: totallyFunded ? "": "Goal", value: totallyFunded ? 0 : this.props.project.softCap, color: "#000000" },
+            { title: "Funded", value:this.props.project.pledged, color: "#5850EC" },
         ];
         return (
             <div style={{backgroundColor:null, width:250}} className="App">
@@ -43,6 +45,7 @@ class Chart extends Component {
                     labelPosition={70}
                 />
             </div>
+            
         );
 
     }
