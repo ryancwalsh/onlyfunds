@@ -12,7 +12,7 @@ export default function Header(props) {
                     <img
                         className="h-8 w-auto sm:h-10"
                         src={icon}
-                        alt="iNEARtiator Icon"
+                        alt="OnlyFunds Icon"
                     />
                 </a>
 

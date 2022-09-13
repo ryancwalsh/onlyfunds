@@ -18,6 +18,7 @@ class BlockProvider extends Component {
             personalProjects: []
         }
 
+
         const {ethereum} = window
         this.ethereum = ethereum
 
@@ -26,6 +27,8 @@ class BlockProvider extends Component {
         } else {
             this.provider = new ethers.providers.JsonRpcProvider("https://testnet.aurora.dev/")
         }
+
+        // this.contract = new ethers.Contract(daiAddress, daiAbi, this.provider);
     }
 
     async activeMetaMaskWallet() {
@@ -39,9 +42,9 @@ class BlockProvider extends Component {
             this.setState({address: address})
         }
 
-        this.ethereum.on('accountsChanged', async (wallets) => {
+/*        this.ethereum.on('accountsChanged', async (wallets) => {
             this.setState({address: wallets[0]})
-        })
+        })*/
 
         const projectsRef = collection(this.db, "projects");
         const response = await getDocs(projectsRef)
@@ -76,7 +79,8 @@ class BlockProvider extends Component {
                 address: this.state.address,
                 connect: this.connect,
                 projects: this.state.projects,
-                personalProjects: this.state.personalProjects
+                //personalProjects: this.state.personalProjects
+                personalProjects: this.state.projects
             }}>
                 {this.props.children}
             </BlockContext.Provider>
