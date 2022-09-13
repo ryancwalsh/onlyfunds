@@ -19,19 +19,17 @@ class FundedExplorer extends Component {
     }
 
     createProjects = () => {
-        console.log('PROJECTS')
-        console.log(this.context.projects)
         const ownedProjects = this.context.projects.filter((project) => { return project.owner === this.context.address })
 
         return ownedProjects.map((project, index) => {
 
             return (
                 <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
+                    <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
                         <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
                     </a>
                     <div className="px-4 py-5 sm:p-6">
-                        <a href="#">
+                        <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
@@ -118,7 +116,7 @@ class FundedExplorer extends Component {
                                                                         // onClick={contract.donate()}
                                                                         className="inline-flex w-full flex-shrink-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:flex-1"
                                                                     >
-                                                                        Contribute
+                                                                        Donate
                                                                     </button>
                                                                     <button
                                                                         type="button"
