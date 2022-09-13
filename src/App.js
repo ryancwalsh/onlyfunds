@@ -20,8 +20,8 @@ function App() {
           Learn React
         </a>*/}
       </header>
-        <Card />
-        {/*<Form />*/}
+        {/*<Card />*/}
+        <Form />
     </div>
   );
 }

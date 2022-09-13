@@ -86,7 +86,7 @@ export default function Form() {
                             </div>
                         </div>*/}
 
-                        {/*<div className="sm:col-span-6">
+                        <div className="sm:col-span-6">
                             <label htmlFor="cover-photo" className="block text-sm font-medium text-gray-700">
                                 Cover photo
                             </label>
@@ -119,7 +119,7 @@ export default function Form() {
                                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                                 </div>
                             </div>
-                        </div>*/}
+                        </div>
                     </div>
                 </div>
 
