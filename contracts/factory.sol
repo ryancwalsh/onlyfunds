@@ -1,19 +1,27 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
-import "./token.sol";
+pragma solidity ^0.8.0;
 
-contract MyToken is ERC20, Ownable {
-    // ATTS
+import './Ownable.sol';
+import './Project.sol';
 
-    constructor() ERC20("MyToken", "MTK") {}
+contract Factory is Ownable {
+    mapping(address => address[]) private _projects;
 
-    // METHODS
-
-    function mint(address to, uint256 amount) public onlyOwner {
-        _mint(to, amount);
+    function getProject(address owner) external view returns(address[]) {
+        return _projects[owner];
     }
 
-    function create(address from, uint256 amount) public onlyOwner {
-        Project project = new Project();
+    function createProject(
+        string memory tokenName,
+        string memory tokenSymbol,
+        address ownerAddress,
+        uint softCap,
+        uint hardCap,
+        uint startTime,
+        uint endTime
+    ) external {
+        require(_projects[msg.sender] == address(0));
+        Project project = new Project(tokenName, tokenSymbol, ownerAddress, softCap, hardCap, startTime, endTime);
+        _projects[msg.sender].push(address(project));
     }
 }
