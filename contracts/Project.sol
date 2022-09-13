@@ -15,7 +15,7 @@ contract Project is ERC20, Ownable {
     uint public totalFunders;
     bool public fundingPeriod = true;
     bool public votingPeriod = false;
-    bool public projectCancelled = true;
+    bool public projectCancelled = false;
 
     mapping(uint => mapping(address => bool)) private alreadyVoted;
     uint private amountAlreadyVoted;
@@ -24,7 +24,7 @@ contract Project is ERC20, Ownable {
     uint public negativePhaseVotes;
     uint public currentVoteIndex;
 
-    bool public partialFundsWithdrawable;
+    bool public partialFundsWithdrawable = true;
     uint public partialFundAmount;
 
     uint private fixedTotalSupply;
@@ -85,7 +85,7 @@ contract Project is ERC20, Ownable {
     function initiateVote(uint amount) external onlyFunders {
         require(
             partialFundAmount == 0 && fundingPeriod == false,
-            "Either partialFundAmount = 0 or fundingPeriod = false"
+            "Either partialFundAmount = 0 or fundingPeriod = true"
         );
         currentVoteIndex++;
         amountAlreadyVoted = 0;
@@ -139,6 +139,8 @@ contract Project is ERC20, Ownable {
 
         if (totalFunding >= softCap) {
             fundingPeriod = false;
+            partialFundsWithdrawable = true;
+            partialFundAmount = (address(this).balance * 25) / 100;
         } else {
             projectCancelled = true;
             saveTotals();
@@ -147,12 +149,17 @@ contract Project is ERC20, Ownable {
 
     function withdrawInvestment() public onlyOwner {
         require(projectCancelled == false, "Project has been cancelled");
+        require(fundingPeriod == false, "Project is still being funded");
         require(
             partialFundsWithdrawable == true,
             "partialFundsWithdrawable = false"
         );
 
+        partialFundsWithdrawable = false;
+
         payable(owner()).transfer(partialFundAmount);
+
+        partialFundAmount = 0;
 
         // emit PartialCashOut(owner(), amount, block.timestamp);
     }
