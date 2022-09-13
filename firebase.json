@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "near-onlyfunds",
     "public": "build",
     "ignore": [
       "firebase.json",
@@ -8,3 +9,4 @@
     ]
   }
 }
+
