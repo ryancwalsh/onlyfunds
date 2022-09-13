@@ -1,5 +1,6 @@
 import {Component} from "react"
 import {BlockContext} from "./BlockHandler";
+import Chart from "./Chart";
 
 class Explorer extends Component {
     static contextType = BlockContext
@@ -14,7 +15,7 @@ class Explorer extends Component {
     }
 
     createProjects = () => {
-        const sub = this.context.projects.slice(0, 3)
+        const sub = this.context.projects;
         return sub.map((project, index) => {
 
             return (

@@ -41,15 +41,16 @@ class BlockProvider extends Component {
             this.setState({address: address})
         }
 
-        this.ethereum.on('accountsChanged', async (wallets) => {
-            this.setState({address: wallets[0]})
-        })
+        // this.ethereum.on('accountsChanged', async (wallets) => {
+        //     this.setState({address: wallets[0]})
+        // })
 
         const projectsRef = collection(this.db, "projects");
         const response = await getDocs(projectsRef)
 
         const projects = []
         response.forEach((projectDoc) => {
+            //console.log(projectDoc.data())
             projects.push(projectDoc.data())
         })
 
