@@ -71,7 +71,10 @@ contract Project is ERC20, Ownable {
             block.timestamp > startTime,
             "Funding Period has not started yet"
         );
-        require(block.timestamp < endTime, "Funding Period is over");
+        require(
+            block.timestamp < endTime,
+            "The current time is greater than the end time of the fundraising period"
+        );
         require(msg.value > 0, "Must donate more than 0");
 
         _mint(msg.sender, msg.value);
@@ -80,7 +83,10 @@ contract Project is ERC20, Ownable {
     }
 
     function initiateVote(uint amount) external onlyFunders {
-        require(partialFundAmount == 0 && fundingPeriod == false);
+        require(
+            partialFundAmount == 0 && fundingPeriod == false,
+            "Either partialFundAmount = 0 or fundingPeriod = false"
+        );
         currentVoteIndex++;
         amountAlreadyVoted = 0;
         partialFundAmount = amount;
@@ -88,8 +94,11 @@ contract Project is ERC20, Ownable {
     }
 
     function vote(bool voteCast) external onlyFunders {
-        require(partialFundAmount != 0);
-        require(alreadyVoted[currentVoteIndex][msg.sender] == false);
+        require(partialFundAmount != 0, "partialFundAmount = 0");
+        require(
+            alreadyVoted[currentVoteIndex][msg.sender] == false,
+            "You already voted"
+        );
 
         if (voteCast == true) {
             positivePhaseVotes += balanceOf(msg.sender);
@@ -121,9 +130,12 @@ contract Project is ERC20, Ownable {
 
     // OWNER
 
-    function concludeFundingPeriod() external {
-        require(fundingPeriod == true);
-        require(block.timestamp > endTime || totalFunding > hardCap);
+    function concludeFundingPeriod() external onlyOwner {
+        require(fundingPeriod == true, "fundingPeriod = false");
+        require(
+            block.timestamp > endTime || totalFunding > hardCap,
+            "Either block.timestamp <= endTime or totalFunding <= hardCap"
+        );
 
         if (totalFunding >= softCap) {
             fundingPeriod = false;
@@ -134,8 +146,11 @@ contract Project is ERC20, Ownable {
     }
 
     function withdrawInvestment() public onlyOwner {
-        require(projectCancelled == false);
-        require(partialFundsWithdrawable == true);
+        require(projectCancelled == false, "Project has been cancelled");
+        require(
+            partialFundsWithdrawable == true,
+            "partialFundsWithdrawable = false"
+        );
 
         payable(owner()).transfer(partialFundAmount);
 
@@ -148,7 +163,7 @@ contract Project is ERC20, Ownable {
     }
 
     function stopProject() public onlyOwner {
-        require(projectCancelled == false);
+        require(projectCancelled == false, "projectCancelled = true");
         projectCancelled = true;
         saveTotals();
 
