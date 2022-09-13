@@ -29,10 +29,7 @@ class Creator extends Component {
         if (this.state.photo !== null) {
             url = await this.context.uploadPhoto(this.state.photo)
         }
-        console.log(url)
         this.setState({photoUrl: url}, async() => {
-            console.log('STAAAAATE')
-            console.log(this.state)
             await this.context.createProject(this.state)
         })
         toast.success('Successfully created!');

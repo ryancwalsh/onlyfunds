@@ -146,7 +146,8 @@ class BlockProvider extends Component {
                 address: this.state.address,
                 connect: this.connect,
                 projects: this.state.projects,
-                personalProjects: this.state.personalProjects,
+                // personalProjects: this.state.personalProjects,
+                personalProjects: this.state.projects,
                 createProject: this.createProject,
                 uploadPhoto: this.uploadPhoto
             }}>

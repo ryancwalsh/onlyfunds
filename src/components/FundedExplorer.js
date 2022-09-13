@@ -19,7 +19,9 @@ class FundedExplorer extends Component {
     }
 
     createProjects = () => {
-        const ownedProjects = this.context.projects.slice(0 ,3)
+        console.log('PROJECTS')
+        console.log(this.context.projects)
+        const ownedProjects = this.context.projects.filter((project) => { return project.owner === this.context.address })
 
         return ownedProjects.map((project, index) => {
 
