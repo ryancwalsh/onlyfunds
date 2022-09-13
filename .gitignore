@@ -15,7 +15,7 @@ nearinitiator-857f2-firebase-adminsdk-gswqs-1bc98f2f6d.json
 /coverage
 
 # production
-/build
+#/build
 
 # misc
 .DS_Store
