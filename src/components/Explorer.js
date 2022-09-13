@@ -5,6 +5,7 @@ import {Dialog, Menu, Transition} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {EllipsisVerticalIcon} from "@heroicons/react/20/solid";
 import Chart from "./Chart";
+import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
 class Explorer extends Component {
     static contextType = BlockContext
@@ -25,11 +26,11 @@ class Explorer extends Component {
 
             return (
                 <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
+                    <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
                         <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
                     </a>
                     <div className="px-4 py-5 sm:p-6">
-                        <a href="#">
+                        <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
@@ -37,7 +38,7 @@ class Explorer extends Component {
                             className="text-3xl font-bold text-gray-900 dark:text-white">${project.pledged}</span> out of {project.softCap}</p>
                         <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
                            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-                            Contribute
+                            Donate
                             <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -122,14 +123,21 @@ class Explorer extends Component {
                                                                         // onClick={contract.donate()}
                                                                         className="inline-flex w-full flex-shrink-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:flex-1"
                                                                     >
-                                                                        Contribute
+                                                                        Donate
                                                                     </button>
                                                                     <button
                                                                         type="button"
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
                                                                         className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                                                     >
-                                                                        Vote
+                                                                        <FaRegThumbsUp />
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        style={{display: currentProject.invested ? 'block' : 'none'}}
+                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                                    >
+                                                                        <FaRegThumbsDown />
                                                                     </button>
                                                                 </div>
                                                             </div>
