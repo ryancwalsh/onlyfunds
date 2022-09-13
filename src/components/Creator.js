@@ -1,5 +1,6 @@
 import {Component} from "react"
 import {BlockContext} from "./BlockHandler"
+import toast, { Toaster } from 'react-hot-toast';
 
 class Creator extends Component {
     static contextType = BlockContext
@@ -17,25 +18,21 @@ class Creator extends Component {
             hardCap: null,
             minimumContribution: null,
             maximumContribution: null,
-            icon: null
+            photo: null,
+            photoUrl: null
         }
     }
 
-
-
-    parseInput = async () => {
-        console.log(this.state.title)
-        return
-
-        await this.context.createProject()
-    }
-
-    whatever = (e) => {
-        if (e.target.files.length === 0) return
-        this.setState({icon: e.target.files[0]}, () => {
-            console.log(this.state.icon)
-            console.log(typeof this.state.icon)
+    parseInput = async event => {
+        event.preventDefault()
+        let url = null
+        if (this.state.photo !== null) {
+            url = await this.context.uploadPhoto(this.state.photo)
+        }
+        this.setState({photoUrl: url}, async() => {
+            await this.context.createProject(this.state)
         })
+        toast.success('Successfully created!');
     }
 
     render() {
@@ -58,7 +55,9 @@ class Creator extends Component {
                                         name="title"
                                         id="title"
                                         autoComplete="title"
-                                        onChange={(e) => {this.setState({title:e.target.value})}}
+                                        onChange={(e) => {
+                                            this.setState({title: e.target.value})
+                                        }}
                                         className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
                                 </div>
@@ -75,7 +74,9 @@ class Creator extends Component {
                                     rows={7}
                                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     defaultValue={''}
-                                    onChange={(e) => {this.setState()}}
+                                    onChange={(e) => {
+                                        this.setState({description: e.target.value})
+                                    }}
                                 />
                                 </div>
                                 <p className="mt-2 text-sm text-gray-500">Write a few sentences about the project.</p>
@@ -85,10 +86,14 @@ class Creator extends Component {
 
                     <div className="mt-6">
                         <label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                               htmlFor="file_input">Project Icon</label>
+                               htmlFor="file_input">Project photo</label>
                         <input
                             className="mt-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="file_input" type="file"/>
+                            id="file_input" type="file"
+                            onChange={(e) => {
+                                this.setState({photo: e.target.files[0]})
+                            }}
+                        />
                     </div>
 
                     <div className="pt-8">
@@ -100,11 +105,15 @@ class Creator extends Component {
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="soft-cap"
                                         id="soft-cap"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        onChange={(e) => {
+                                            this.setState({softCap: e.target.value})
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -115,11 +124,15 @@ class Creator extends Component {
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="hard-cap"
                                         id="hard-cap"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        onChange={(e) => {
+                                            this.setState({hardCap: e.target.value})
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -130,11 +143,15 @@ class Creator extends Component {
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="min-contribution"
                                         id="min-contribution"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        onChange={(e) => {
+                                            this.setState({minimumContribution: e.target.value})
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -145,34 +162,46 @@ class Creator extends Component {
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="max-contribution"
                                         id="max-contribution"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        onChange={(e) => {
+                                            this.setState({maximumContribution: e.target.value})
+                                        }}
                                     />
                                 </div>
                             </div>
 
                             <div className="sm:col-span-3">
-                                <label htmlFor="max-contribution" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="start-date" className="block text-sm font-medium text-gray-700">
                                     Fundraising start date
                                 </label>
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="Select a start date"/>
+                                           placeholder="YY/MM/DD"
+                                           onChange={(e) => {
+                                               this.setState({startDate: e.target.value})
+                                           }}
+                                    />
                                 </div>
                             </div>
 
                             <div className="sm:col-span-3">
-                                <label htmlFor="max-contribution" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="end-date" className="block text-sm font-medium text-gray-700">
                                     Fundraising end date
                                 </label>
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="Select an end date"/>
+                                           placeholder="YY/MM/DD"
+                                           onChange={(e) => {
+                                               this.setState({endDate: e.target.value})
+                                           }}
+                                    />
                                 </div>
                             </div>
                         </div>
