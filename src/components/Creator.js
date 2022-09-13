@@ -25,9 +25,6 @@ class Creator extends Component {
 
     parseInput = async () => {
         console.log(this.state.title)
-
-        if (!this.state.title) return false
-
         return
 
         await this.context.createProject()
@@ -78,7 +75,7 @@ class Creator extends Component {
                                     rows={7}
                                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     defaultValue={''}
-                                    onChange={(e) => {this.setState({description: e.target.value})}}
+                                    onChange={(e) => {this.setState()}}
                                 />
                                 </div>
                                 <p className="mt-2 text-sm text-gray-500">Write a few sentences about the project.</p>
@@ -91,8 +88,7 @@ class Creator extends Component {
                                htmlFor="file_input">Project Icon</label>
                         <input
                             className="mt-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="file_input" type="file"
-                        />
+                            id="file_input" type="file"/>
                     </div>
 
                     <div className="pt-8">
@@ -109,11 +105,6 @@ class Creator extends Component {
                                         id="soft-cap"
                                         autoComplete="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({softCap: number})
-                                        }}
                                     />
                                 </div>
                             </div>
@@ -129,11 +120,6 @@ class Creator extends Component {
                                         id="hard-cap"
                                         autoComplete="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({hardCap: number})
-                                        }}
                                     />
                                 </div>
                             </div>
@@ -149,11 +135,6 @@ class Creator extends Component {
                                         id="min-contribution"
                                         autoComplete="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({minimumContribution: number})
-                                        }}
                                     />
                                 </div>
                             </div>
@@ -167,16 +148,8 @@ class Creator extends Component {
                                         type="text"
                                         name="max-contribution"
                                         id="max-contribution"
-                                        value={this.state.maximumContribution}
                                         autoComplete="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        onChange={(e) => {
-                                            console.log("CALL")
-                                            console.log(e.target.value)
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({maximumContribution: number})
-                                        }}
                                     />
                                 </div>
                             </div>
