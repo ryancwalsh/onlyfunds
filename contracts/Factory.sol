@@ -1,13 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import './Ownable.sol';
-import './Project.sol';
+import "./Ownable.sol";
+import "./Project.sol";
 
 contract Factory is Ownable {
     mapping(address => address[]) private _projects;
 
-    function getProject(address owner) external view returns(address[]) {
+    function getProject(address owner)
+        external
+        view
+        returns (address[] memory)
+    {
         return _projects[owner];
     }
 
@@ -20,8 +24,15 @@ contract Factory is Ownable {
         uint startTime,
         uint endTime
     ) external {
-        require(_projects[msg.sender] == address(0));
-        Project project = new Project(tokenName, tokenSymbol, ownerAddress, softCap, hardCap, startTime, endTime);
+        Project project = new Project(
+            tokenName,
+            tokenSymbol,
+            ownerAddress,
+            softCap,
+            hardCap,
+            startTime,
+            endTime
+        );
         _projects[msg.sender].push(address(project));
     }
 }
