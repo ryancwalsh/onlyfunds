@@ -17,27 +17,16 @@ class Creator extends Component {
             hardCap: null,
             minimumContribution: null,
             maximumContribution: null,
-            icon: null
+            photo: null,
+            photoUrl: null
         }
     }
 
-
-
-    parseInput = async () => {
-        console.log(this.state.title)
-
-        if (!this.state.title) return false
-
-        return
-
-        await this.context.createProject()
-    }
-
-    whatever = (e) => {
-        if (e.target.files.length === 0) return
-        this.setState({icon: e.target.files[0]}, () => {
-            console.log(this.state.icon)
-            console.log(typeof this.state.icon)
+    parseInput = async event => {
+        event.preventDefault()
+        const url = await this.context.uploadPhoto(this.state.photo)
+        this.setState({photoUrl: url}, async() => {
+            await this.context.createProject(this.state)
         })
     }
 
@@ -51,6 +40,8 @@ class Creator extends Component {
                         </div>
 
                         <div className="mt-6">
+
+                            {/* Title */}
                             <div className="">
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                                     Title
@@ -61,12 +52,15 @@ class Creator extends Component {
                                         name="title"
                                         id="title"
                                         autoComplete="title"
-                                        onChange={(e) => {this.setState({title:e.target.value})}}
+                                        onChange={(e) => {
+                                            this.setState({title: e.target.value})
+                                        }}
                                         className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     />
                                 </div>
                             </div>
 
+                            {/* Description */}
                             <div className="sm:col-span-6">
                                 <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                                     Description
@@ -78,7 +72,9 @@ class Creator extends Component {
                                     rows={7}
                                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     defaultValue={''}
-                                    onChange={(e) => {this.setState({description: e.target.value})}}
+                                    onChange={(e) => {
+                                        this.setState({description: e.target.value})
+                                    }}
                                 />
                                 </div>
                                 <p className="mt-2 text-sm text-gray-500">Write a few sentences about the project.</p>
@@ -86,120 +82,132 @@ class Creator extends Component {
                         </div>
                     </div>
 
+                    {/* Project photo */}
                     <div className="mt-6">
                         <label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                               htmlFor="file_input">Project Icon</label>
+                               htmlFor="file_input">Project photo</label>
                         <input
                             className="mt-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             id="file_input" type="file"
+                            onChange={(e) => {
+                                this.setState({photo: e.target.files[0]})
+                            }}
                         />
                     </div>
 
                     <div className="pt-8">
                         <h3 className="text-lg font-medium leading-6 text-gray-900">Contribution requirements</h3>
                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+
+                            {/* Soft cap */}
                             <div className="sm:col-span-3">
                                 <label htmlFor="soft-cap" className="block text-sm font-medium text-gray-700">
                                     Soft cap
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="soft-cap"
                                         id="soft-cap"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({softCap: number})
+                                            this.setState({softCap: e.target.value})
                                         }}
                                     />
                                 </div>
                             </div>
 
+                            {/* Hard cap */}
                             <div className="sm:col-span-3">
                                 <label htmlFor="hard-cap" className="block text-sm font-medium text-gray-700">
                                     Hard cap
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="hard-cap"
                                         id="hard-cap"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({hardCap: number})
+                                            this.setState({hardCap: e.target.value})
                                         }}
                                     />
                                 </div>
                             </div>
 
+                            {/* Minimum contribution */}
                             <div className="sm:col-span-3">
                                 <label htmlFor="min-contribution" className="block text-sm font-medium text-gray-700">
                                     Minimum contribution
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="min-contribution"
                                         id="min-contribution"
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         onChange={(e) => {
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({minimumContribution: number})
+                                            this.setState({minimumContribution: e.target.value})
                                         }}
                                     />
                                 </div>
                             </div>
 
+                            {/* Maximum contribution */}
                             <div className="sm:col-span-3">
                                 <label htmlFor="max-contribution" className="block text-sm font-medium text-gray-700">
                                     Maximum contribution
                                 </label>
                                 <div className="mt-1">
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="max-contribution"
                                         id="max-contribution"
-                                        value={this.state.maximumContribution}
                                         autoComplete="0"
+                                        min="0"
                                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         onChange={(e) => {
-                                            console.log("CALL")
-                                            console.log(e.target.value)
-                                            const number = parseInt(e.target.value)
-                                            if (isNaN(number)) return
-                                            this.setState({maximumContribution: number})
+                                            this.setState({maximumContribution: e.target.value})
                                         }}
                                     />
                                 </div>
                             </div>
 
+                            {/* Fundraising start date */}
                             <div className="sm:col-span-3">
-                                <label htmlFor="max-contribution" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="start-date" className="block text-sm font-medium text-gray-700">
                                     Fundraising start date
                                 </label>
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="Select a start date"/>
+                                           placeholder="YY/MM/DD"
+                                           onChange={(e) => {
+                                               this.setState({startDate: e.target.value})
+                                           }}
+                                    />
                                 </div>
                             </div>
 
+                            {/* Fundraising end date */}
                             <div className="sm:col-span-3">
-                                <label htmlFor="max-contribution" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="end-date" className="block text-sm font-medium text-gray-700">
                                     Fundraising end date
                                 </label>
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="Select an end date"/>
+                                           placeholder="YY/MM/DD"
+                                           onChange={(e) => {
+                                               this.setState({endDate: e.target.value})
+                                           }}
+                                    />
                                 </div>
                             </div>
                         </div>
