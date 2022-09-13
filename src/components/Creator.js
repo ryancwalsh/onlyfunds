@@ -1,5 +1,6 @@
 import {Component} from "react"
 import {BlockContext} from "./BlockHandler"
+import toast, { Toaster } from 'react-hot-toast';
 
 class Creator extends Component {
     static contextType = BlockContext
@@ -24,10 +25,15 @@ class Creator extends Component {
 
     parseInput = async event => {
         event.preventDefault()
-        const url = await this.context.uploadPhoto(this.state.photo)
+        let url = null
+        if (this.state.photo !== null) {
+            url = await this.context.uploadPhoto(this.state.photo)
+        }
         this.setState({photoUrl: url}, async() => {
             await this.context.createProject(this.state)
         })
+        window.location.reload();
+        toast.success('Successfully created!');
     }
 
     render() {
