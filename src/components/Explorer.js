@@ -148,7 +148,7 @@ class Explorer extends Component {
                                                                     Location
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    New York, NY, USA
+                                                                    <p>{currentProject.location}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
