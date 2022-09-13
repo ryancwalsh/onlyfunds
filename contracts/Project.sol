@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import './ERC20.sol';
-import './Ownable.sol';
+import "./ERC20.sol";
+import "./Ownable.sol";
 
 contract Project is ERC20, Ownable {
     uint public softCap;
@@ -25,7 +25,7 @@ contract Project is ERC20, Ownable {
     uint public currentVoteIndex;
 
     bool public partialFundsWithdrawable;
-    bool public partialFundAmount;
+    uint public partialFundAmount;
 
     uint private fixedTotalSupply;
     uint private fixedTotalFunding;
@@ -43,7 +43,15 @@ contract Project is ERC20, Ownable {
     }
 
     // Payable constructor can receive Ether
-    constructor(string memory tokenName, string memory tokenSymbol, address _ownerAddress, uint _softCap, uint _hardCap, uint _startTime, uint _endTime) {
+    constructor(
+        string memory tokenName,
+        string memory tokenSymbol,
+        address _ownerAddress,
+        uint _softCap,
+        uint _hardCap,
+        uint _startTime,
+        uint _endTime
+    ) ERC20("", "") {
         transferOwnership(_ownerAddress);
         softCap = _softCap;
         hardCap = _hardCap;
@@ -51,7 +59,6 @@ contract Project is ERC20, Ownable {
         endTime = _endTime;
         _name = tokenName;
         _symbol = tokenSymbol;
-        _secondsPerPhase = (endTime - startTime) / phases;
     }
 
     receive() external payable {}
@@ -60,7 +67,10 @@ contract Project is ERC20, Ownable {
 
     function donate() public payable {
         require(fundingPeriod == true, "Funding Period is over");
-        require(block.timestamp > startTime, "Funding Period has not started yet");
+        require(
+            block.timestamp > startTime,
+            "Funding Period has not started yet"
+        );
         require(block.timestamp < endTime, "Funding Period is over");
         require(msg.value > 0, "Must donate more than 0");
 
@@ -69,7 +79,7 @@ contract Project is ERC20, Ownable {
         emit Donation(msg.sender, msg.value, block.timestamp);
     }
 
-    function initiateVote(uint amount) onlyFunders {
+    function initiateVote(uint amount) external onlyFunders {
         require(partialFundAmount == 0 && fundingPeriod == false);
         currentVoteIndex++;
         amountAlreadyVoted = 0;
@@ -77,7 +87,7 @@ contract Project is ERC20, Ownable {
         // voting event emit
     }
 
-    function vote(bool voteCast) onlyFunders {
+    function vote(bool voteCast) external onlyFunders {
         require(partialFundAmount != 0);
         require(alreadyVoted[currentVoteIndex][msg.sender] == false);
 
@@ -90,19 +100,19 @@ contract Project is ERC20, Ownable {
         alreadyVoted[currentVoteIndex][msg.sender] = true;
         amountAlreadyVoted++;
 
-        uint percentageVoted = amountAlreadyVoted * 1000 / totalFunders;
+        uint percentageVoted = (amountAlreadyVoted * 1000) / totalFunders;
         uint totalVotes = positivePhaseVotes + negativePhaseVotes;
 
-        if (totalVotes < majorityPercentage) return;
+        if (percentageVoted < majorityPercentage) return;
 
-        uint positivePercentage = positivePhaseVotes * 1000 / totalVotes;
+        uint positivePercentage = (positivePhaseVotes * 1000) / totalVotes;
 
         if (positivePercentage > majorityPercentage) {
             partialFundsWithdrawable = true;
             return;
         }
 
-        uint negativePercentage = negativePhaseVotes * 1000 / totalVotes;
+        uint negativePercentage = (negativePhaseVotes * 1000) / totalVotes;
         if (negativePercentage > majorityPercentage) {
             projectCancelled = true;
             saveTotals();
@@ -111,7 +121,7 @@ contract Project is ERC20, Ownable {
 
     // OWNER
 
-    function concludeFundingPeriod() {
+    function concludeFundingPeriod() external {
         require(fundingPeriod == true);
         require(block.timestamp > endTime || totalFunding > hardCap);
 
@@ -129,7 +139,7 @@ contract Project is ERC20, Ownable {
 
         payable(owner()).transfer(partialFundAmount);
 
-        emit PartialCashOut(owner(), amount, block.timestamp);
+        // emit PartialCashOut(owner(), amount, block.timestamp);
     }
 
     function saveTotals() internal {
@@ -148,9 +158,12 @@ contract Project is ERC20, Ownable {
     // EMERGENCY
     function emergencyWithdraw() external onlyFunders {
         require(projectCancelled == true, "Project has not failed");
-        require(balanceOf(msg.sender) > 0, "You have no voting tokens for this project");
-        uint percentage = balanceOf(msg.sender) * 1000 / fixedTotalSupply;
-        uint partialAmount = percentage * fixedTotalFunding / 1000;
+        require(
+            balanceOf(msg.sender) > 0,
+            "You have no voting tokens for this project"
+        );
+        uint percentage = (balanceOf(msg.sender) * 1000) / fixedTotalSupply;
+        uint partialAmount = (percentage * fixedTotalFunding) / 1000;
         _burn(msg.sender, balanceOf(msg.sender));
         // Currently not Reentrancy Safe
         payable(msg.sender).transfer(partialAmount);
