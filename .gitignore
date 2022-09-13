@@ -5,7 +5,6 @@
 /.pnp
 .pnp.js
 
-/src/template
 /src/components/FireStore.js
 
 # testing
