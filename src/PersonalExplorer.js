@@ -2,12 +2,13 @@ import {useContext} from "react";
 import {BlockContext} from "./components/BlockHandler";
 import Explorer from "./components/Explorer";
 import {PlusCircleIcon, FaceFrownIcon} from '@heroicons/react/20/solid'
+import FundedExplorer from "./components/FundedExplorer";
 
 export default function PersonalExplorer() {
     const {personalProjects} = useContext(BlockContext)
 
     if (personalProjects.length > 0) {
-        return <Explorer/>
+        return <FundedExplorer/>
     } else {
         return (
             <div className="w-96 overflow-hidden rounded-lg bg-white shadow">
