@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Explorer from "./components/Explorer"
 import Creator from "./components/Creator"
 import PersonalExplorer from "./PersonalExplorer";
+import ChainController from './components/ChainController'
 
 
 function App() {
@@ -26,12 +27,7 @@ function App() {
     }
 
     return (
-        <Fragment>
-            <Header switchTab={switchTab} currentTab={currentTab} />
-            <div className="flex justify-center items-center p-4 flex-1">
-                {displayCurrentTab()}
-            </div>
-        </Fragment>
+        <ChainController/>
     );
 }
 
