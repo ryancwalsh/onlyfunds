@@ -48,6 +48,7 @@ We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Cova
 The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California, Colorado, Germany and Spain.  Most of us did not know each other before the conference and only came together to hack at this event.  With exception of one team member, none of us have participated in a hackathon before.
 
 ## What's Next for OnlyFunds
+- A few very minor updates to various things that we weren't able to incorporate during the hackathon (e.g., anything that doesn't seem to work quite the way you expect it to)
 - Options to contribute using funds from multiple sources
 - Better UI/UX for project tracking and voting
 - Research parameters founders want in the fundraising contract
@@ -57,7 +58,7 @@ The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California,
 
 # Info For Developers
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  The backend references Firebase  
 
 ## Available Scripts
 
