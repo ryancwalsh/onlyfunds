@@ -124,10 +124,10 @@ contract Project is ERC20, Ownable {
         if (positivePercentage > majorityPercentage) {
             partialFundsWithdrawable = true;
 
-            positivePhaseVotes = 0;
-            negativePhaseVotes = 0;
-            percentageVoted = 0;
-            totalVotes = 0;
+            // positivePhaseVotes = 0;
+            // negativePhaseVotes = 0;
+            // percentageVoted = 0;
+            // totalVotes = 0;
 
             return;
         }
@@ -136,10 +136,10 @@ contract Project is ERC20, Ownable {
         if (negativePercentage > majorityPercentage) {
             projectCancelled = true;
 
-            positivePhaseVotes = 0;
-            negativePhaseVotes = 0;
-            percentageVoted = 0;
-            totalVotes = 0;
+            // positivePhaseVotes = 0;
+            // negativePhaseVotes = 0;
+            // percentageVoted = 0;
+            // totalVotes = 0;
 
             saveTotals();
         }
