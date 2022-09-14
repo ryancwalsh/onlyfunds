@@ -21,7 +21,7 @@ class FundedExplorer extends Component {
 
     createProjects = () => {
         const ownedProjects = this.context.projects.filter((project) => {
-            return project.owner !== this.context.address
+            return project.owner === this.context.address
         })
 
         return ownedProjects.map((project, index) => {
@@ -138,13 +138,6 @@ class FundedExplorer extends Component {
                                                                     className="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
                                                                     <button
                                                                         type="button"
-                                                                        // onClick={contract.donate()}
-                                                                        className="inline-flex w-full flex-shrink-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:flex-1"
-                                                                    >
-                                                                        Donate
-                                                                    </button>
-                                                                    <button
-                                                                        type="button"
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
                                                                         className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-green-300 bg-green px-4 py-2 text-sm font-medium text-green-700 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                                                     >
@@ -184,8 +177,7 @@ class FundedExplorer extends Component {
                                                                     Start date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time
-                                                                        dateTime={currentProject.startDate}>{startDate.toDateString()}</time>
+                                                                    <p>{currentProject.startDate}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
@@ -193,8 +185,7 @@ class FundedExplorer extends Component {
                                                                     End date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time
-                                                                        dateTime={currentProject.endDate}>{endDate.toDateString()}</time>
+                                                                    <p>{currentProject.endTime}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
