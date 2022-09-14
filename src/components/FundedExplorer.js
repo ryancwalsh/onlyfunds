@@ -34,9 +34,14 @@ class FundedExplorer extends Component {
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
-                            className="text-3xl font-bold text-gray-900 dark:text-white">${project.pledged}</span> out of {project.softCap}</p>
+                            // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
+                            className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
+                        <button
+                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                            Conclude voting period
+                        </button>
                         <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
-                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                             Withdraw
                         </button>
                     </div>
@@ -47,7 +52,7 @@ class FundedExplorer extends Component {
 
     renderSlideOver = () => {
         if (this.state.selectedProjectIndex !== null) {
-            let currentProject = this.context.projects[this.state.selectedProjectIndex]
+            let currentProject = this.context.projects.filter((project) => { return project.owner === this.context.address })[this.state.selectedProjectIndex]
 
             let startDate = new Date(1970, 1, 1)
             startDate.setSeconds(currentProject.startDate.seconds)

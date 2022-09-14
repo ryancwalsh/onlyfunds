@@ -25,10 +25,20 @@ class Creator extends Component {
 
     parseInput = async event => {
         event.preventDefault()
-        let url = null
-        if (this.state.photo !== null) {
-            url = await this.context.uploadPhoto(this.state.photo)
-        }
+        if (
+            this.state.title === "" ||
+            this.state.description === "" ||
+            this.state.startDate === null ||
+            this.state.endDate === null ||
+            this.state.softCap === null ||
+            this.state.hardCap === null ||
+            this.state.minimumContribution === null ||
+            this.state.maximumContribution === null ||
+            this.state.photo === null ||
+            this.context.address === null
+        ) return;
+
+        const url = await this.context.uploadPhoto(this.state.photo)
         this.setState({photoUrl: url}, async() => {
             await this.context.createProject(this.state)
         })

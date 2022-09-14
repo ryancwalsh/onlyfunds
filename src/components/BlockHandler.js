@@ -84,7 +84,8 @@ class BlockProvider extends Component {
             subtitle: data.subtitle,
             title: data.title,
             id: uuid(),
-            photoUrl: data.photoUrl
+            photoUrl: data.photoUrl,
+            owner: this.state.address
         });
     }
 
