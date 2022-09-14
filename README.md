@@ -30,36 +30,35 @@ Our crowdfunding platform gives backers the power of DAO governance to control t
 ### Inspiration
 In the web2 crowdfunding model backers have no mechanism to influence the development of the project, such as when the founding team disappears or creates something very different from what was promised.
 
-### How we built it
+### How We Built It
+
 We used React, Firestore, and Solidity as our backbone. We added custom functionality on top of the ERC-20 standard that gives backers DAO-based governance control over the release of the funds raised through a voting mechanism.
 
-### Challenges we ran into
+### Challenges We Ran Into
 Deciding the scope of the backers' control was a challenging design space because of the many options that exist between donation and investment. We would love to talk to more founders to learn whether they would prefer to have the governance tokens persist, end, or have the option to choose.
 
-### Accomplishments that we're proud of
-We're proud that we have an MVP on-chain and working front- and back-ends, especially considering that we didn't know each other before Sunday!
+### Accomplishments That We're Proud Of
+We're proud that we have an MVP on-chain and working front- and back-ends deployed to a working webapp, especially considering that we didn't know each other before Sunday, and all but one of us have ever competed in a hackathon!  
 
-### What we learned
+### What We Learned
 We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Covalent** to read on-chain data, and many of our team members learned how to utilize new languages from each other.
 
 ## OnlyFunds Team
 
 The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California, Colorado, Germany and Spain.  Most of us did not know each other before the conference and only came together to hack at this event.  With exception of one team member, none of us have participated in a hackathon before.
 
-## What's next for OnlyFunds
-- Project our burn rate based on initial protocol revenue.
-- Better UI/UX for project tracking and voting.
-- Research parameters founders want in the fundraising contract.
-- Move back-end to IPFS.
-- Make smart contracts gas-efficient and upgradable.
-- Hire a designer :)
-
-
+## What's Next for OnlyFunds
+- A few very minor updates to various things that we weren't able to incorporate during the hackathon (e.g., anything that doesn't seem to work quite the way you expect it to)
+- Options to contribute using funds from multiple sources
+- Better UI/UX for project tracking and voting
+- Research parameters founders want in the fundraising contract
+- Move back-end to IPFS
+- Make smart contracts gas-efficient and upgradable
 
 
 # Info For Developers
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  The backend references Firebase  
 
 ## Available Scripts
 
@@ -98,7 +97,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Learn More About the React App
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -127,3 +126,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Learn More About Deploying on Firebase
+
+https://firebase.google.com/docs/hosting/quickstart
+
+As part of the setup process is the option to setup GitHub Actions to deploy the project, which is how we are deploying the app.  The production folder is `/build` 
+
+
