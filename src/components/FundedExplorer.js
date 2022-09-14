@@ -20,31 +20,41 @@ class FundedExplorer extends Component {
     }
 
     createProjects = () => {
-        const ownedProjects = this.context.projects.filter((project) => { return project.owner === this.context.address })
+        const ownedProjects = this.context.projects.filter((project) => {
+            return project.owner !== this.context.address
+        })
 
         return ownedProjects.map((project, index) => {
 
             return (
-                <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
+                <div
+                    className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a onClick={() => {
+                        this.setState({selectedProjectIndex: index})
+                    }}>
                         <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
                     </a>
                     <div className="px-4 py-5 sm:p-6">
-                        <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
+                        <a onClick={() => {
+                            this.setState({selectedProjectIndex: index})
+                        }}>
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
                             // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
-                            className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
-                        <button
+                            className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out
+                            of {project.softCap} $ETH</p>
+                        <div className="flex gap-3">
+                            <button
                                 className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 margin-right:5px">
-                            Conclude voting period
-                        </button>
-                        <button
+                                Conclude voting period
+                            </button>
+                            <button
                                 className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                            Withdraw
-                        </button>
+                                Withdraw
+                            </button>
+                        </div>
                     </div>
                 </div>
             )
@@ -53,7 +63,9 @@ class FundedExplorer extends Component {
 
     renderSlideOver = () => {
         if (this.state.selectedProjectIndex !== null) {
-            let currentProject = this.context.projects.filter((project) => { return project.owner === this.context.address })[this.state.selectedProjectIndex]
+            let currentProject = this.context.projects.filter((project) => {
+                return project.owner === this.context.address
+            })[this.state.selectedProjectIndex]
 
             let startDate = new Date(1970, 1, 1)
             startDate.setSeconds(currentProject.startDate.seconds)
@@ -62,12 +74,15 @@ class FundedExplorer extends Component {
 
             return (
                 <Transition.Root show={true} as={Fragment}>
-                    <Dialog as="div" className="relative z-10" onClose={() => {this.setState({selectedProjectIndex: null})}}>
-                        <div className="fixed inset-0" />
+                    <Dialog as="div" className="relative z-10" onClose={() => {
+                        this.setState({selectedProjectIndex: null})
+                    }}>
+                        <div className="fixed inset-0"/>
 
                         <div className="fixed inset-0 overflow-hidden">
                             <div className="absolute inset-0 overflow-hidden">
-                                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+                                <div
+                                    className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
                                     <Transition.Child
                                         as={Fragment}
                                         enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -81,7 +96,8 @@ class FundedExplorer extends Component {
                                             <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                                 <div className="px-4 py-6 sm:px-6">
                                                     <div className="flex items-start justify-between">
-                                                        <Dialog.Title className="text-lg font-medium text-gray-900">Project</Dialog.Title>
+                                                        <Dialog.Title
+                                                            className="text-lg font-medium text-gray-900">Project</Dialog.Title>
                                                         <div className="ml-3 flex h-7 items-center">
                                                             <button
                                                                 type="button"
@@ -89,18 +105,20 @@ class FundedExplorer extends Component {
                                                                 onClick={() => this.setState({selectedProjectIndex: null})}
                                                             >
                                                                 <span className="sr-only">Close panel</span>
-                                                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                                                                <XMarkIcon className="h-6 w-6" aria-hidden="true"/>
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="divide-y divide-gray-200">
                                                     <div className="pb-6">
-                                                        <div className="h-24 bg-indigo-700 sm:h-20 lg:h-28" />
-                                                        <div className="lg:-mt-15 -mt-12 flow-root px-4 sm:-mt-8 sm:flex sm:items-end sm:px-6">
+                                                        <div className="h-24 bg-indigo-700 sm:h-20 lg:h-28"/>
+                                                        <div
+                                                            className="lg:-mt-15 -mt-12 flow-root px-4 sm:-mt-8 sm:flex sm:items-end sm:px-6">
                                                             <div>
                                                                 <div className="-m-1 flex">
-                                                                    <div className="inline-flex overflow-hidden rounded-lg border-4 border-white">
+                                                                    <div
+                                                                        className="inline-flex overflow-hidden rounded-lg border-4 border-white">
                                                                         <img
                                                                             className="h-24 w-24 flex-shrink-0 sm:h-40 sm:w-40 lg:h-48 lg:w-48"
                                                                             src={currentProject.photoUrl}
@@ -116,7 +134,8 @@ class FundedExplorer extends Component {
                                                                     </div>
                                                                     <p className="text-sm text-gray-500">{currentProject.twitter}</p>
                                                                 </div>
-                                                                <div className="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
+                                                                <div
+                                                                    className="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
                                                                     <button
                                                                         type="button"
                                                                         // onClick={contract.donate()}
@@ -129,14 +148,14 @@ class FundedExplorer extends Component {
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
                                                                         className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-green-300 bg-green px-4 py-2 text-sm font-medium text-green-700 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                                                     >
-                                                                        <FaRegThumbsUp color="green" />
+                                                                        <FaRegThumbsUp color="green"/>
                                                                     </button>
                                                                     <button
                                                                         type="button"
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
                                                                         className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-red-300 bg-red px-4 py-2 text-sm font-medium text-red-700 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                                                     >
-                                                                        <FaRegThumbsDown color="red" />
+                                                                        <FaRegThumbsDown color="red"/>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -145,7 +164,9 @@ class FundedExplorer extends Component {
                                                     <div className="px-4 py-5 sm:px-0 sm:py-0">
                                                         <dl className="space-y-8 sm:space-y-0 sm:divide-y sm:divide-gray-200">
                                                             <div className="sm:flex sm:px-6 sm:py-5">
-                                                                <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">About the project</dt>
+                                                                <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">About
+                                                                    the project
+                                                                </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
                                                                     <p>{currentProject.description}</p>
                                                                 </dd>
@@ -163,7 +184,8 @@ class FundedExplorer extends Component {
                                                                     Start date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time dateTime={currentProject.startDate}>{startDate.toDateString()}</time>
+                                                                    <time
+                                                                        dateTime={currentProject.startDate}>{startDate.toDateString()}</time>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
@@ -171,7 +193,8 @@ class FundedExplorer extends Component {
                                                                     End date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time dateTime={currentProject.endDate}>{endDate.toDateString()}</time>
+                                                                    <time
+                                                                        dateTime={currentProject.endDate}>{endDate.toDateString()}</time>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
@@ -213,7 +236,7 @@ class FundedExplorer extends Component {
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
                                                                     <p>{currentProject.pledged}</p>
                                                                 </dd>
-                                                                <Chart project={currentProject} />
+                                                                <Chart project={currentProject}/>
                                                             </div>
                                                         </dl>
                                                     </div>

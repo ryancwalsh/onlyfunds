@@ -54,7 +54,7 @@ export default function Card() {
                         className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                 </div>*/}
                 <div className="flex justify-between items-center">
-                    <span className="text-3m font-bold text-gray-900 dark:text-white">Raising 5000 $NEAR</span>
+                    <span className="text-3m font-bold text-gray-900 dark:text-white">Raising 5000 $ETH</span>
                     <a href="#"
                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Donate

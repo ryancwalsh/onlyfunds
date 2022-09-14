@@ -1,9 +1,7 @@
-import {Component, Fragment, useState} from "react"
+import {Component, Fragment} from "react"
 import {BlockContext} from "./BlockHandler";
-import Example from "../template/SlideOver";
 import {Dialog, Menu, Transition} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
-import {EllipsisVerticalIcon} from "@heroicons/react/20/solid";
 import Chart from "./Chart";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
@@ -20,41 +18,68 @@ class Explorer extends Component {
         }
     }
 
-    createProjects = () => {
-        return this.context.projects.map((project, index) => {
+    createRows = () => {
+        const rows = []
+        let row = []
 
+        for (let i = 0; i < this.context.projects.length; i++) {
+            const project = this.context.projects[i]
+            console.log(project.title)
+            row.push(this.createProject(project, i))
+
+            if (row.length === 2) {
+                rows.push([...row])
+                row = []
+            }
+        }
+
+        if (row.length > 0) {
+            rows.push([...row])
+        }
+
+        return rows.map((row) => {
             return (
-                <div className="flex flex-col justify-between max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-
-                    <div>
-                        <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
-                            <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
-                        </a>
-                        <div className="px-4 py-5 sm:p-6">
-                            <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
-                            </a>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
-                        </div>
-                    </div>
-                    <div className="px-4 py-5 sm:p-6">
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
-                            // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
-                            className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
-                        <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
-                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-                            Donate
-                            <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd"
-                                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                      clipRule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </div>
+                <div className="w-full flex gap-4">
+                    {row[0]}
+                    {row[1]}
                 </div>
             )
         })
+    }
+
+    createProject = (project, index) => {
+        return (
+            <div className="flex-1 flex flex-col justify-between bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+            style={{maxWidth: "calc(50% - 1rem)"}}>
+
+                <div>
+                    <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
+                        <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
+                    </a>
+                    <div className="px-4 py-5 sm:p-6">
+                        <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
+                        </a>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
+                    </div>
+                </div>
+                <div className="px-4 py-5 sm:p-6">
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
+                        // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
+                        className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $ETH</p>
+                    <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
+                            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                        Donate
+                        <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd"
+                                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                  clipRule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        )
     }
 
     renderSlideOver = () => {
@@ -243,7 +268,7 @@ class Explorer extends Component {
             <div className="max-w-4xl flex-1 flex flex-col gap-4">
                 {this.renderSlideOver()}
                 <div className="w-full h-full flex justify-between flex-wrap gap-4">
-                    {this.createProjects()}
+                    {this.createRows()}
                 </div>
             </div>
         )

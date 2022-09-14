@@ -145,7 +145,7 @@ class BlockProvider extends Component {
         }
 
         const signer = project.contract.connect(this.provider.getSigner())
-        signer.donate({value: this.toBigNumber(amount)}).then(async (response) => {
+        signer.donate({value: ethers.BigNumber.from("500000000000000")}).then(async (response) => {
             await response.wait()
             toast.dismiss(toastID)
             toast.success("Successfully funded!")
