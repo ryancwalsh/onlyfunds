@@ -185,7 +185,7 @@ class FundedExplorer extends Component {
                                                                     End date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <p>{currentProject.endDate}</p>
+                                                                    <p>{currentProject.endTime}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
@@ -222,10 +222,10 @@ class FundedExplorer extends Component {
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
                                                                 <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
-                                                                    Pledged <span>{currentProject.pledged}</span> out of
+                                                                    Pledged
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <p>{currentProject.pledged}/{currentProject.softCap} ({currentProject.pledged / currentProject.softCap * 100}%)</p>
+                                                                    <p>{currentProject.pledged}</p>
                                                                 </dd>
                                                                 <Chart project={currentProject}/>
                                                             </div>
