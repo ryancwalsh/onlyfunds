@@ -134,4 +134,13 @@ https://firebase.google.com/docs/hosting/quickstart
 
 As part of the setup process is the option to setup GitHub Actions to deploy the project, which is how we are deploying the app.  The production folder is `/build` 
 
+...assuming you have setup firebase and have project access
+
+### `firebase serve`
+
+Performs a local deployment, similar to `npm start`
+
+### `firebase deploy`
+
+Deploys to production.  Not necessary because GitHub Actions will automatically deploy the app upon commit.
 
