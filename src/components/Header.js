@@ -1,7 +1,7 @@
 import {Popover} from '@headlessui/react'
 import ConnectButton from './Connect'
 import Button from "./Button";
-import icon from '../data/icon.png'
+import icon from '../data/logo.png'
 
 export default function Header(props) {
     return (
