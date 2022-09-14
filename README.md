@@ -1,3 +1,5 @@
+![Teampicture NEAR Hackaton 2022](https://we.tl/t-Ep5boWt3Kh)
+
 # OnlyFunds
 A NEARcon 2022 Project  
 
