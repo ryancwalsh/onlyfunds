@@ -1,6 +1,5 @@
 import {Component} from "react"
 import {BlockContext} from "./BlockHandler"
-import toast, { Toaster } from 'react-hot-toast';
 
 class Creator extends Component {
     static contextType = BlockContext
@@ -18,8 +17,7 @@ class Creator extends Component {
             hardCap: null,
             minimumContribution: null,
             maximumContribution: null,
-            photo: null,
-            photoUrl: null
+            photo: null
         }
     }
 
@@ -38,10 +36,7 @@ class Creator extends Component {
             this.context.address === null
         ) return;
 
-        const url = await this.context.uploadPhoto(this.state.photo)
-        this.setState({photoUrl: url}, async() => {
-            await this.context.createProject(this.state)
-        })
+        await this.context.createProject(this.state)
     }
 
     render() {
@@ -191,7 +186,7 @@ class Creator extends Component {
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="YY/MM/DD"
+                                           placeholder="YYYY-MM-DD"
                                            onChange={(e) => {
                                                this.setState({startDate: e.target.value})
                                            }}
@@ -206,7 +201,7 @@ class Creator extends Component {
                                 <div className="datepicker relative form-floating mb-3 xl:w-96">
                                     <input type="text"
                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                           placeholder="YY/MM/DD"
+                                           placeholder="YYYY-MM-DD"
                                            onChange={(e) => {
                                                this.setState({endDate: e.target.value})
                                            }}

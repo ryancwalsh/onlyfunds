@@ -53,7 +53,9 @@ class BlockProvider extends Component {
 
         const projects = []
         response.forEach((projectDoc) => {
-            projects.push(projectDoc.data())
+            const projectData = projectDoc.data()
+            projectData.contract = new ethers.Contract(projectData.id, projectABI, this.provider)
+            projects.push(projectData)
         })
 
         this.setState({projects: projects})
@@ -72,16 +74,18 @@ class BlockProvider extends Component {
     }
 
     toBigNumber = (amount) => {
-        return ethers.BigNumber.from(amount).mul(ethers.BigNumber.from(10)).pow(18)
+        return ethers.BigNumber.from(amount).mul(ethers.BigNumber.from(10).pow(18))
     }
 
     createProject = async (data) => {
-        const toastID = toast.loading("Waiting for Approval...")
-        const signer = this.factory.connect(this.provider.getSigner())
+        data.startDate = new Date(data.startDate)
+        data.endDate = new Date(data.endDate)
 
-        // TODO TEMPORARY
-        data.startDate = new Date()
-        data.endDate = new Date()
+        console.log(data)
+
+        const toastID = toast.loading("Waiting for Confirmation...")
+        const url = await this.uploadPhoto(data.photo)
+        const signer = this.factory.connect(this.provider.getSigner())
 
         signer.createProject(
             data.title, // name
@@ -110,7 +114,7 @@ class BlockProvider extends Component {
                 subtitle: data.subtitle,
                 title: data.title,
                 id: mostRecentAddress,
-                photoUrl: data.photoUrl,
+                photoUrl: url,
                 owner: this.state.address,
                 pledged: 0
             });
@@ -122,6 +126,37 @@ class BlockProvider extends Component {
             toast.error("Something went wrong :/")
             console.log(error)
         })
+    }
+
+    donate = async (projectID, amount) => {
+        const toastID = toast.loading("Waiting for Confirmation...")
+
+        let project = null;
+        for (const iterProject of this.state.projects) {
+            if (iterProject.id === projectID) {
+                project = iterProject
+            }
+        }
+
+        if (project === null) {
+            toast.dismiss(toastID)
+            toast.error("Something went wrong")
+            return
+        }
+
+        const signer = project.contract.connect(this.provider.getSigner())
+        signer.donate({value: this.toBigNumber(amount)}).then(async (response) => {
+            await response.wait()
+            toast.dismiss(toastID)
+            toast.success("Successfully funded!")
+
+        }).catch((error) => {
+            toast.dismiss(toastID)
+            toast.error("Something went wrong :/")
+            console.log(error)
+        })
+
+
     }
 
     uploadPhoto = async (file) => {
@@ -182,10 +217,9 @@ class BlockProvider extends Component {
                 address: this.state.address,
                 connect: this.connect,
                 projects: this.state.projects,
-                // personalProjects: this.state.personalProjects,
                 personalProjects: this.state.projects,
                 createProject: this.createProject,
-                uploadPhoto: this.uploadPhoto
+                donate: this.donate
             }}>
                 {this.props.children}
             </BlockContext.Provider>
