@@ -3,8 +3,8 @@ import {ethers} from 'ethers'
 import {initiateFirestore} from "./FireStore"
 import { collection, getDocs, addDoc} from "firebase/firestore"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {type} from "@testing-library/user-event/dist/type";
-import uuid from 'react-uuid';
+import toast from 'react-hot-toast'
+import {factoryABI, projectABI} from "../data/ABI";
 
 const BlockContext = createContext(null)
 
@@ -29,7 +29,8 @@ class BlockProvider extends Component {
             this.provider = new ethers.providers.JsonRpcProvider("https://testnet.aurora.dev/")
         }
 
-        // this.contract = new ethers.Contract(daiAddress, daiAbi, this.provider);
+        this.factoryAddress = "0x5044873f6dD465E84380d0f581D7Cd003eE12b54"
+        this.factory = new ethers.Contract(this.factoryAddress, factoryABI, this.provider);
     }
 
     async activeMetaMaskWallet() {
@@ -70,23 +71,55 @@ class BlockProvider extends Component {
         }
     }
 
+    toBigNumber = (amount) => {
+        return ethers.BigNumber.from(amount).mul(ethers.BigNumber.from(10)).pow(18)
+    }
+
     createProject = async (data) => {
-        await addDoc(collection(this.db, "projects"), {
-            backers: 0,
-            createdAt: Date.now(),
-            description: data.description,
-            startDate: data.startDate,
-            endDate: data.endDate,
-            hardCap: data.hardCap,
-            softCap: data.softCap,
-            minimumContribution: data.minimumContribution,
-            maximumContribution: data.maximumContribution,
-            subtitle: data.subtitle,
-            title: data.title,
-            id: uuid(),
-            photoUrl: data.photoUrl,
-            owner: this.state.address
-        });
+        const toastID = toast.loading("Waiting for Approval...")
+        const signer = this.factory.connect(this.provider.getSigner())
+
+        // TODO TEMPORARY
+        data.startDate = new Date()
+        data.endDate = new Date()
+
+        signer.createProject(
+            data.title, // name
+            data.title + "_DAO", // symbol
+            this.state.address,
+            this.toBigNumber(data.softCap), // softcap with decimals
+            this.toBigNumber(data.hardCap), // hardcap with decimals
+            Math.round(data.startDate.getTime() / 1000),
+            Math.round(data.endDate.getTime() / 1000)
+        ).then(async (response) => {
+            await response.wait()
+
+            const contracts = await signer.getProject(this.state.address)
+            const mostRecentAddress = contracts[contracts.length - 1]
+
+            await addDoc(collection(this.db, "projects"), {
+                backers: 0,
+                createdAt: Date.now(),
+                description: data.description,
+                startDate: data.startDate,
+                endDate: data.endDate,
+                hardCap: data.hardCap,
+                softCap: data.softCap,
+                minimumContribution: data.minimumContribution,
+                maximumContribution: data.maximumContribution,
+                subtitle: data.subtitle,
+                title: data.title,
+                id: mostRecentAddress,
+                photoUrl: data.photoUrl
+            });
+
+            toast.dismiss(toastID)
+            toast.success("Project created!")
+        }).catch((error) => {
+            toast.dismiss(toastID)
+            toast.error("Something went wrong :/")
+            console.log(error)
+        })
     }
 
     uploadPhoto = async (file) => {
