@@ -3,13 +3,13 @@ A NEARcon 2022 Project
 
 ## Judging Info
 
-### Track
+### NEARcon Track
 
 Governance – decentralizing NEAR protocol; making DAO useful in real world  
 Web2 to Web3 – bootstrapping “traditional” apps and tools on blockchain  
 Future of finance – DeFi apps and features
 
-### Bounties
+### NEARcon Bounties
 
 #### Covalent
 
