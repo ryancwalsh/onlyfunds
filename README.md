@@ -39,7 +39,7 @@ We used React, Firestore, and Solidity as our backbone. We added custom function
 Deciding the scope of the backers' control was a challenging design space because of the many options that exist between donation and investment. We would love to talk to more founders to learn whether they would prefer to have the governance tokens persist, end, or have the option to choose.
 
 ### Accomplishments That We're Proud Of
-We're proud that we have an MVP on-chain and working front- and back-ends deployed to a working webapp, especially considering that we didn't know each other before Sunday, and all but one of us have ever competed in a hackathon!  
+We're proud that we have an MVP on-chain and working front- and back-ends deployed to a working webapp.  We are especially happy considering that we didn't know each other before Sunday, and for 5 of the 6 teammates this is our first ever hackathon!  
 
 ### What We Learned
 We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Covalent** to read on-chain data, and many of our team members learned how to utilize new languages from each other.
