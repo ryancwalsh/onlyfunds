@@ -78,8 +78,8 @@ class BlockProvider extends Component {
     }
 
     createProject = async (data) => {
-        data.startDate = new Date(data.startDate)
-        data.endDate = new Date(data.endDate)
+        const startDate = new Date(data.startDate)
+        const endDate = new Date(data.endDate)
 
         console.log(data)
 
@@ -93,8 +93,8 @@ class BlockProvider extends Component {
             this.state.address,
             this.toBigNumber(data.softCap), // softcap with decimals
             this.toBigNumber(data.hardCap), // hardcap with decimals
-            Math.round(data.startDate.getTime() / 1000),
-            Math.round(data.endDate.getTime() / 1000)
+            Math.round(startDate.getTime() / 1000),
+            Math.round(endDate.getTime() / 1000)
         ).then(async (response) => {
             await response.wait()
 
