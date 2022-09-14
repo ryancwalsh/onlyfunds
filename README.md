@@ -1,13 +1,14 @@
 # OnlyFunds
-A NEARcon 2022 Project
+A NEARcon 2022 Project  
+
+App is live: [https://near-onlyfunds.web.app/](https://near-onlyfunds.web.app/)
+NOTE: because of ethers references you may need a browser with somthing like metamask extension installed
+
 
 ## Judging Info
 
 ### NEARcon Track
-
-Governance – decentralizing NEAR protocol; making DAO useful in real world  
-Web2 to Web3 – bootstrapping “traditional” apps and tools on blockchain  
-Future of finance – DeFi apps and features
+Future of Finance – DeFi apps and features
 
 ### NEARcon Bounties
 
@@ -58,7 +59,7 @@ The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California,
 
 # Info For Developers
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  The backend references Firebase  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  The backend references [Firebase](https://firebase.google.com/docs) which is also what we used for hosting.
 
 ## Available Scripts
 
@@ -83,9 +84,9 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+NOTE: upon committing the `/build` folder the app will automatically be deployed to production:
+[https://near-onlyfunds.web.app/](https://near-onlyfunds.web.app/)
 
 ### `npm run eject`
 
