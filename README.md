@@ -1,20 +1,50 @@
-## Inspiration
-In the web2 crowdfunding model backers have no mechanism to influence the development of the project, such as when the founding team disappears or creates something very different from what was promised.
+# OnlyFunds
+A NEARcon 2022 Project
 
-## What it does
+## Judging Info
+
+### NEARcon Track
+
+Governance – decentralizing NEAR protocol; making DAO useful in real world  
+Web2 to Web3 – bootstrapping “traditional” apps and tools on blockchain  
+Future of finance – DeFi apps and features
+
+### NEARcon Bounties
+
+#### Covalent
+
+We used the Covalent API to read on-chain data into our front-end.
+
+#### Armored Kingdom 
+
+[Click here for our Armored Kingdom Story](https://docs.google.com/document/d/1-0JfgCBGhAEtwN25vWzzeFXj768MXsc52xkCA8rYAwY/edit?usp=sharing)
+
+
+## OnlyFunds App Overview
+
+### What our App Does
 Our crowdfunding platform gives backers the power of DAO governance to control the release of funds raised and hold the founding team accountable. A vote at each milestone either releases the remaining funds or returns them to the backers.
 
-## How we built it
+## OnlyFunds Project Background 
+ 
+### Inspiration
+In the web2 crowdfunding model backers have no mechanism to influence the development of the project, such as when the founding team disappears or creates something very different from what was promised.
+
+### How we built it
 We used React, Firestore, and Solidity as our backbone. We added custom functionality on top of the ERC-20 standard that gives backers DAO-based governance control over the release of the funds raised through a voting mechanism.
 
-## Challenges we ran into
+### Challenges we ran into
 Deciding the scope of the backers' control was a challenging design space because of the many options that exist between donation and investment. We would love to talk to more founders to learn whether they would prefer to have the governance tokens persist, end, or have the option to choose.
 
-## Accomplishments that we're proud of
+### Accomplishments that we're proud of
 We're proud that we have an MVP on-chain and working front- and back-ends, especially considering that we didn't know each other before Sunday!
 
-## What we learned
+### What we learned
 We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Covalent** to read on-chain data, and many of our team members learned how to utilize new languages from each other.
+
+## OnlyFunds Team
+
+The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California, Colorado, Germany and Spain.  Most of us did not know each other before the conference and only came together to hack at this event.  With exception of one team member, none of us have participated in a hackathon before.
 
 ## What's next for OnlyFunds
 - Project our burn rate based on initial protocol revenue.
@@ -24,12 +54,10 @@ We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Cova
 - Make smart contracts gas-efficient and upgradable.
 - Hire a designer :)
 
-## Relevant bounties
-We used the Covalent API to read on-chain data into our front-end.
 
 
 
-# React App
+# Info For Developers
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

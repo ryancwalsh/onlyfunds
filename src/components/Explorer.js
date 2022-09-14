@@ -21,25 +21,28 @@ class Explorer extends Component {
     }
 
     createProjects = () => {
-        const sub = this.context.projects.slice(0, 3)
-
-        return sub.map((project, index) => {
+        return this.context.projects.map((project, index) => {
 
             return (
-                <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
-                        <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
-                    </a>
-                    <div className="px-4 py-5 sm:p-6">
+                <div className="flex flex-col justify-between max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+
+                    <div>
                         <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
+                            <img align="middle" className="rounded-t-lg" src={project.photoUrl} alt=""/>
                         </a>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
+                        <div className="px-4 py-5 sm:p-6">
+                            <a onClick={() => { this.setState({selectedProjectIndex: index}) }}>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
+                            </a>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
+                        </div>
+                    </div>
+                    <div className="px-4 py-5 sm:p-6">
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
                             // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
                             className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
                         <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
-                           className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
                             Donate
                             <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -57,15 +60,6 @@ class Explorer extends Component {
     renderSlideOver = () => {
         if (this.state.selectedProjectIndex !== null) {
             let currentProject = this.context.projects[this.state.selectedProjectIndex]
-
-            console.log('DATES')
-            console.log(currentProject.startDate)
-            let startDate = new Date(1970, 1, 1)
-            startDate.setSeconds(currentProject.startDate.seconds)
-            console.log(startDate)
-            let endDate = new Date(1970, 1, 1)
-            endDate.setSeconds(currentProject.endDate.seconds)
-            console.log(endDate)
 
             return (
                 <Transition.Root show={true} as={Fragment}>
@@ -177,7 +171,7 @@ class Explorer extends Component {
                                                                     Start date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time dateTime={currentProject.startDate}>{startDate.toDateString()}</time>
+                                                                    <p>{currentProject.startDate}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
@@ -185,7 +179,7 @@ class Explorer extends Component {
                                                                     End date
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <time dateTime={currentProject.endDate}>{endDate.toDateString()}</time>
+                                                                    <p>{currentProject.endDate}</p>
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
