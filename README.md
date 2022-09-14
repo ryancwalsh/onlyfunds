@@ -1,7 +1,7 @@
 # OnlyFunds
 A NEARcon 2022 Project  
 
-App is live: [https://near-onlyfunds.web.app/](https://near-onlyfunds.web.app/)
+App is live: [https://near-onlyfunds.web.app/](https://near-onlyfunds.web.app/)  
 NOTE: because of ethers references you may need a browser with somthing like metamask extension installed
 
 
