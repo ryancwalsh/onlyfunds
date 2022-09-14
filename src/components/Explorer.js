@@ -35,7 +35,8 @@ class Explorer extends Component {
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pledged <span
-                            className="text-3xl font-bold text-gray-900 dark:text-white">${project.pledged}</span> out of {project.softCap}</p>
+                            // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
+                            className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
                         <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
                            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
                             Donate
@@ -56,10 +57,14 @@ class Explorer extends Component {
         if (this.state.selectedProjectIndex !== null) {
             let currentProject = this.context.projects[this.state.selectedProjectIndex]
 
+            console.log('DATES')
+            console.log(currentProject.startDate)
             let startDate = new Date(1970, 1, 1)
             startDate.setSeconds(currentProject.startDate.seconds)
+            console.log(startDate)
             let endDate = new Date(1970, 1, 1)
             endDate.setSeconds(currentProject.endDate.seconds)
+            console.log(endDate)
 
             return (
                 <Transition.Root show={true} as={Fragment}>
@@ -128,16 +133,16 @@ class Explorer extends Component {
                                                                     <button
                                                                         type="button"
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
-                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-green-300 bg-green px-4 py-2 text-sm font-medium text-green-700 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                                                     >
-                                                                        <FaRegThumbsUp />
+                                                                        <FaRegThumbsUp color="green" />
                                                                     </button>
                                                                     <button
                                                                         type="button"
                                                                         style={{display: currentProject.invested ? 'block' : 'none'}}
-                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-red-300 bg-red px-4 py-2 text-sm font-medium text-red-700 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                                                     >
-                                                                        <FaRegThumbsDown />
+                                                                        <FaRegThumbsDown color="red" />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -242,11 +247,7 @@ class Explorer extends Component {
     render() {
         return (
             <div className="max-w-4xl flex-1 flex flex-col gap-4">
-                {/*{this.renderModal()}*/}
                 {this.renderSlideOver()}
-                <div className="w-full h-12 bg-white shadow rounded-lg">
-                    {/*Sort and Shit*/}
-                </div>
                 <div className="w-full h-full flex justify-between flex-wrap gap-4">
                     {this.createProjects()}
                 </div>

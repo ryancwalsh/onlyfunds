@@ -12,14 +12,28 @@ import {
   // signInWithCredential,
   // EmailAuthProvider
 } from 'firebase/auth'
-
+import { } from 'firebase/app-check';
 import firebaseConfig from "./config";
+
+
+const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
+
 
 const initFirebase = async () => {
   try {
     const app = initializeApp(firebaseConfig())
     const firestore = getFirestore(app)
     const auth = getAuth(app)
+
+
+	const appCheck = initializeAppCheck(app, {
+	  provider: new ReCaptchaV3Provider('6Leue_chAAAAAJMNkml5CPlxOp12y37ovuxR7ZAt'),
+
+	  // Optional argument. If true, the SDK automatically refreshes App Check
+	  // tokens as needed.
+	  isTokenAutoRefreshEnabled: true
+	});
+
 
     const projects = await getDocs(collection(firestore, "projects"));
     /*querySnapshot.forEach((doc) => {

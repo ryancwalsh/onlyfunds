@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-nearinitiator-857f2-firebase-adminsdk-gswqs-1bc98f2f6d.json
-/venv
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -23,8 +19,8 @@ nearinitiator-857f2-firebase-adminsdk-gswqs-1bc98f2f6d.json
 .env.development.local
 .env.test.local
 .env.production.local
+.idea
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> 4430321ecb36431de260d6366b39daceb8039122

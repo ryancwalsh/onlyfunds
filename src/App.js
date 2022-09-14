@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Explorer from "./components/Explorer"
 import Creator from "./components/Creator"
 import PersonalExplorer from "./PersonalExplorer";
+import ChainController from './components/ChainController'
 
 
 function App() {
