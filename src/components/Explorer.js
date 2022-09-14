@@ -24,7 +24,6 @@ class Explorer extends Component {
 
         for (let i = 0; i < this.context.projects.length; i++) {
             const project = this.context.projects[i]
-            console.log(project.title)
             row.push(this.createProject(project, i))
 
             if (row.length === 2) {

@@ -16,7 +16,7 @@ class BlockProvider extends Component {
 
         this.state = {
             address: null,
-            projects: [1,2,3],
+            projects: [],
             personalProjects: []
         }
 
@@ -31,6 +31,14 @@ class BlockProvider extends Component {
 
         this.factoryAddress = "0x5044873f6dD465E84380d0f581D7Cd003eE12b54"
         this.factory = new ethers.Contract(this.factoryAddress, factoryABI, this.provider);
+    }
+
+    async updateProject() {
+        for (const project of this.state.projects) {
+            const signer = project.contract.connect(this.provider)
+            project.pledged = ethers.utils.formatEther( await signer.totalFunding() )
+        }
+        this.setState({projects: this.state.projects})
     }
 
     async activeMetaMaskWallet() {
@@ -58,7 +66,9 @@ class BlockProvider extends Component {
             projects.push(projectData)
         })
 
-        this.setState({projects: projects})
+        this.setState({projects: projects}, async () => {
+            await this.updateProject()
+        })
     }
 
     connect = async () => {

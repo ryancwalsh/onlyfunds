@@ -247,10 +247,8 @@ class FundedExplorer extends Component {
     render() {
         return (
             <div className="max-w-4xl flex-1 flex flex-col gap-4">
-                {/*{this.renderModal()}*/}
                 {this.renderSlideOver()}
                 <div className="w-full h-12 bg-white shadow rounded-lg">
-                    {/*Sort and Shit*/}
                 </div>
                 <div className="w-full h-full flex justify-between flex-wrap gap-4">
                     {this.createProjects()}
