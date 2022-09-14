@@ -17,21 +17,25 @@ contract Project is ERC20, Ownable {
     bool public votingPeriod = false;
     bool public projectCancelled = false;
 
-    mapping(uint => mapping(address => bool)) private alreadyVoted;
-    uint private amountAlreadyVoted;
+    mapping(uint => mapping(address => bool)) public alreadyVoted;
+    uint public amountAlreadyVoted;
 
-    uint public positivePhaseVotes;
-    uint public negativePhaseVotes;
-    uint public currentVoteIndex;
+    uint public positivePhaseVotes = 0;
+    uint public negativePhaseVotes = 0;
+    uint public currentVoteIndex = 0;
+    uint public positivePercentage = 0;
+    uint public percentageVoted = 0;
+    uint public totalVotes = 0;
+    uint public negativePercentage = 0;
 
     bool public partialFundsWithdrawable = true;
     uint public partialFundAmount;
 
-    uint private fixedTotalSupply;
-    uint private fixedTotalFunding;
+    uint public fixedTotalSupply;
+    uint public fixedTotalFunding;
 
     // Denominator = 1000
-    uint public majorityPercentage = 510;
+    uint public majorityPercentage = 250;
 
     event Donation(address initiator, uint amount, uint timestamp);
     event PartialCashOut(address owner, uint amount, uint timestamp);
@@ -79,6 +83,7 @@ contract Project is ERC20, Ownable {
 
         _mint(msg.sender, msg.value);
         totalFunding += msg.value;
+        totalFunders++;
         emit Donation(msg.sender, msg.value, block.timestamp);
     }
 
@@ -109,21 +114,33 @@ contract Project is ERC20, Ownable {
         alreadyVoted[currentVoteIndex][msg.sender] = true;
         amountAlreadyVoted++;
 
-        uint percentageVoted = (amountAlreadyVoted * 1000) / totalFunders;
-        uint totalVotes = positivePhaseVotes + negativePhaseVotes;
+        percentageVoted = (amountAlreadyVoted * 1000) / totalFunders;
+        totalVotes = positivePhaseVotes + negativePhaseVotes;
 
         if (percentageVoted < majorityPercentage) return;
 
-        uint positivePercentage = (positivePhaseVotes * 1000) / totalVotes;
+        positivePercentage = (positivePhaseVotes * 1000) / totalVotes;
 
         if (positivePercentage > majorityPercentage) {
             partialFundsWithdrawable = true;
+
+            positivePhaseVotes = 0;
+            negativePhaseVotes = 0;
+            percentageVoted = 0;
+            totalVotes = 0;
+
             return;
         }
 
-        uint negativePercentage = (negativePhaseVotes * 1000) / totalVotes;
+        negativePercentage = (negativePhaseVotes * 1000) / totalVotes;
         if (negativePercentage > majorityPercentage) {
             projectCancelled = true;
+
+            positivePhaseVotes = 0;
+            negativePhaseVotes = 0;
+            percentageVoted = 0;
+            totalVotes = 0;
+
             saveTotals();
         }
     }
