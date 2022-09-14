@@ -244,7 +244,7 @@ class Explorer extends Component {
                                                                     Pledged
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <p>{currentProject.pledged}</p>
+                                                                    <p>{currentProject.pledged}/{currentProject.softCap} ({currentProject.pledged / currentProject.softCap}%)</p>
                                                                 </dd>
                                                                 <Chart project={currentProject} />
                                                             </div>

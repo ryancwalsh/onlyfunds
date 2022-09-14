@@ -13,9 +13,10 @@ class Chart extends Component {
     render() {
         if (this.props.project === undefined) return
         const totallyFunded = this.props.project.pledged >= this.props.project.softCap
+        const nothingPledged = this.props.project.pledged === 0
         let data = [
-            { title: totallyFunded ? "": "Goal", value: totallyFunded ? 0 : this.props.project.softCap, color: "#555555" },
-            { title: "Funded", value:this.props.project.pledged, color: "#5850EC" },
+            { title: totallyFunded ? "" : "Goal", value: totallyFunded ? 0 : this.props.project.softCap, color: "#7f797d" },
+            { title: nothingPledged ? "" : "Funded", value:this.props.project.pledged, color: "#5850EC" },
         ];
         return (
             <div style={{backgroundColor:null, width:250}} className="App">
