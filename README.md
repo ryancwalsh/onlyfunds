@@ -5,8 +5,8 @@ A NEARcon 2022 Project
 
 ### Track
 
-Governance – decentralizing NEAR protocol; making DAO useful in real world
-Web2 to Web3 – bootstrapping “traditional” apps and tools on blockchain
+Governance – decentralizing NEAR protocol; making DAO useful in real world  
+Web2 to Web3 – bootstrapping “traditional” apps and tools on blockchain  
 Future of finance – DeFi apps and features
 
 ### Bounties
@@ -20,14 +20,12 @@ We used the Covalent API to read on-chain data into our front-end.
 [Click here for our Armored Kingdom Story](https://docs.google.com/document/d/1-0JfgCBGhAEtwN25vWzzeFXj768MXsc52xkCA8rYAwY/edit?usp=sharing)
 
 
-# OnlyFunds Info    
-
-## OnlyFunds App 
+## OnlyFunds App Overview
 
 ### What our App Does
 Our crowdfunding platform gives backers the power of DAO governance to control the release of funds raised and hold the founding team accountable. A vote at each milestone either releases the remaining funds or returns them to the backers.
 
-## OnlyFunds Background 
+## OnlyFunds Project Background 
  
 ### Inspiration
 In the web2 crowdfunding model backers have no mechanism to influence the development of the project, such as when the founding team disappears or creates something very different from what was promised.
@@ -44,9 +42,7 @@ We're proud that we have an MVP on-chain and working front- and back-ends, espec
 ### What we learned
 We learned how to use **Aurora** to compile Solidity for NEAR, how to use **Covalent** to read on-chain data, and many of our team members learned how to utilize new languages from each other.
 
-## OnlyFunds Project
-
-## The Team
+## OnlyFunds Team
 
 The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California, Colorado, Germany and Spain.  Most of us did not know each other before the conference and only came together to hack at this event.  With exception of one team member, none of us have participated in a hackathon before.
 
@@ -61,14 +57,7 @@ The OnlyFunds hack team was assembled for NEARcon 2022.  We are from California,
 
 
 
-
-
-
-
-
-
-
-# Developer Info
+# Info For Developers
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
