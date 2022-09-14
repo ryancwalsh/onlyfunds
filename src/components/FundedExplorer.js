@@ -5,6 +5,7 @@ import {Dialog, Menu, Transition} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {EllipsisVerticalIcon} from "@heroicons/react/20/solid";
 import Chart from "./Chart";
+import {FaRegThumbsDown, FaRegThumbsUp} from "react-icons/fa";
 
 class FundedExplorer extends Component {
     static contextType = BlockContext
@@ -37,10 +38,10 @@ class FundedExplorer extends Component {
                             // className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap}<img src="icon_nm.svg" width="10" height="10" alt="Near logo"/></p>
                             className="text-3xl font-bold text-gray-900 dark:text-white">{project.pledged}</span> out of {project.softCap} $NEAR</p>
                         <button
-                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                                className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 margin-right:5px">
                             Conclude voting period
                         </button>
-                        <button onClick={() => { this.setState({selectedProjectIndex: index}) }}
+                        <button
                                 className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                             Withdraw
                         </button>
@@ -125,9 +126,17 @@ class FundedExplorer extends Component {
                                                                     </button>
                                                                     <button
                                                                         type="button"
-                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                                        style={{display: currentProject.invested ? 'block' : 'none'}}
+                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-green-300 bg-green px-4 py-2 text-sm font-medium text-green-700 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                                                     >
-                                                                        Vote
+                                                                        <FaRegThumbsUp color="green" />
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        style={{display: currentProject.invested ? 'block' : 'none'}}
+                                                                        className="inline-flex w-full flex-1 items-center justify-center rounded-md border border-red-300 bg-red px-4 py-2 text-sm font-medium text-red-700 shadow-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                                                    >
+                                                                        <FaRegThumbsDown color="red" />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -139,14 +148,6 @@ class FundedExplorer extends Component {
                                                                 <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">About the project</dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
                                                                     <p>{currentProject.description}</p>
-                                                                </dd>
-                                                            </div>
-                                                            <div className="sm:flex sm:px-6 sm:py-5">
-                                                                <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
-                                                                    Location
-                                                                </dt>
-                                                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    New York, NY, USA
                                                                 </dd>
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">

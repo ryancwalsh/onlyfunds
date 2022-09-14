@@ -158,14 +158,6 @@ class Explorer extends Component {
                                                             </div>
                                                             <div className="sm:flex sm:px-6 sm:py-5">
                                                                 <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
-                                                                    Location
-                                                                </dt>
-                                                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">
-                                                                    <p>{currentProject.location}</p>
-                                                                </dd>
-                                                            </div>
-                                                            <div className="sm:flex sm:px-6 sm:py-5">
-                                                                <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                                                                     Website
                                                                 </dt>
                                                                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 sm:ml-6">

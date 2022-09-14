@@ -110,7 +110,9 @@ class BlockProvider extends Component {
                 subtitle: data.subtitle,
                 title: data.title,
                 id: mostRecentAddress,
-                photoUrl: data.photoUrl
+                photoUrl: data.photoUrl,
+                owner: this.state.address,
+                pledged: 0
             });
 
             toast.dismiss(toastID)

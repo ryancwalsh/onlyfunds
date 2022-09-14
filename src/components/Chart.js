@@ -12,12 +12,9 @@ class Chart extends Component {
 
     render() {
         if (this.props.project === undefined) return
-        console.log('PROJECT')
-        console.log(this.props.project)
-        console.log('-------')
         const totallyFunded = this.props.project.pledged >= this.props.project.softCap
         let data = [
-            { title: totallyFunded ? "": "Goal", value: totallyFunded ? 0 : this.props.project.softCap, color: "#000000" },
+            { title: totallyFunded ? "": "Goal", value: totallyFunded ? 0 : this.props.project.softCap, color: "#555555" },
             { title: "Funded", value:this.props.project.pledged, color: "#5850EC" },
         ];
         return (
