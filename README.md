@@ -5,22 +5,6 @@ App is live: [https://near-onlyfunds.web.app/](https://near-onlyfunds.web.app/)
 NOTE: because of ethers references you may need a browser with somthing like metamask extension installed
 
 
-## Judging Info
-
-### NEARcon Track
-Future of Finance – DeFi apps and features
-
-### NEARcon Bounties
-
-#### Covalent
-
-We used the Covalent API to read on-chain data into our front-end.
-
-#### Armored Kingdom 
-
-[Click here for our Armored Kingdom Story](https://docs.google.com/document/d/1-0JfgCBGhAEtwN25vWzzeFXj768MXsc52xkCA8rYAwY/edit?usp=sharing)
-
-
 ## OnlyFunds App Overview
 
 ### What our App Does
