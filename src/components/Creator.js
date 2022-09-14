@@ -42,7 +42,6 @@ class Creator extends Component {
         this.setState({photoUrl: url}, async() => {
             await this.context.createProject(this.state)
         })
-        toast.success('Successfully created!');
     }
 
     render() {

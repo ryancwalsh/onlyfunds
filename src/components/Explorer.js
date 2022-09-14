@@ -1,9 +1,7 @@
 import {Component, Fragment, useState} from "react"
 import {BlockContext} from "./BlockHandler";
-import Example from "../template/SlideOver";
-import {Dialog, Menu, Transition} from "@headlessui/react";
+import {Dialog, Transition} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
-import {EllipsisVerticalIcon} from "@heroicons/react/20/solid";
 import Chart from "./Chart";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
