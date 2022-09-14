@@ -27,7 +27,12 @@ function App() {
     }
 
     return (
-        <ChainController/>
+        <Fragment>
+            <Header switchTab={switchTab} currentTab={currentTab} />
+            <div className="flex justify-center items-center p-4 flex-1">
+                {displayCurrentTab()}
+            </div>
+        </Fragment>
     );
 }
 
