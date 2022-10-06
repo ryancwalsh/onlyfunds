@@ -122,6 +122,8 @@ As part of the setup process is the option to setup GitHub Actions to deploy the
 
 ...assuming you have setup firebase and have project access
 
+Our Firebase API Key is secret, so the firebase won't work without changing it to the correct key!
+
 ### `firebase serve`
 
 Performs a local deployment, similar to `npm start`
