@@ -25,6 +25,11 @@ jobs:
         CI: false
       # env:
       #   DB_Key: ${{ secrets.DB_Key }}
+    - name: Upload production-ready build files
+      uses: actions/upload-artifact@v2
+      with:
+        name: production-files
+        path: ./build
   deploy:
     needs: build
     runs-on: ubuntu-latest
