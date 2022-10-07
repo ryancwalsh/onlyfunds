@@ -26,6 +26,7 @@ jobs:
       # env:
       #   DB_Key: ${{ secrets.DB_Key }}
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
