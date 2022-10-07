@@ -30,22 +30,10 @@ jobs:
       with:
         name: production-files
         path: ./build
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [^14.18.0]
-    steps:
-      - name: Download articats
-        uses: actions/download-artifact@v2
-        with:
-          name: production-files
-      - uses: actions/checkout@v2
-      - name: GitHub Action for Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          FIREBASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: deploy
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEARINITIATOR }}'
+        channelId: live
+        projectId: nearinitiator
