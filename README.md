@@ -1,4 +1,4 @@
-![Team OnlyFunds NEARCON 2022](https://content-baer.de/wp-content/uploads/2022/09/WhatsApp-Image-2022-09-14-at-13.44.56.jpeg)
+![Teampicture NEAR Hackaton 2022]([https://we.tl/t-Ep5boWt3Kh](https://content-baer.de/wp-content/uploads/2022/09/WhatsApp-Image-2022-09-14-at-13.44.56.jpeg))
 
 # OnlyFunds
 A NEARcon 2022 Project  
