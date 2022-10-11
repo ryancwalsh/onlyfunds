@@ -10,7 +10,7 @@
 # testing
 /coverage
 
-# production
+# production / local build folder 
 /build
 
 # misc
@@ -24,3 +24,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# firebase
+.firebase
