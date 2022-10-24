@@ -5,13 +5,11 @@ import "./Ownable.sol";
 import "./Project.sol";
 
 contract Factory is Ownable {
-    mapping(address => address[]) private _projects;
+    mapping(address => address) private _projects;
 
-    function getProject(address owner)
-        external
-        view
-        returns (address[] memory)
-    {
+    function getProject(
+        address owner
+    ) external view returns (address) {
         return _projects[owner];
     }
 
@@ -24,6 +22,9 @@ contract Factory is Ownable {
         uint startTime,
         uint endTime
     ) external {
+        // TODO: cleanup after fail / success + long after
+        require(_projects[msg.sender] == address(0), "ONLYFUNDS: account already owns a running project");
+
         Project project = new Project(
             tokenName,
             tokenSymbol,
@@ -33,6 +34,6 @@ contract Factory is Ownable {
             startTime,
             endTime
         );
-        _projects[msg.sender].push(address(project));
+        _projects[msg.sender] = address(project);
     }
 }
