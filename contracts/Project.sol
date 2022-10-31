@@ -114,8 +114,8 @@ contract Project is ERC20, Ownable {
         }
     }
 
-    function metadata() external view returns(address, uint, uint, uint, uint, uint, uint) {
-        return (owner(), softCap, hardCap, minimumContribution, maximumContribution, fundingStartTime, fundingEndTime);
+    function metadata() external view returns(address, string memory, uint, uint, uint, uint, uint, uint) {
+        return (owner(), name(), softCap, hardCap, minimumContribution, maximumContribution, fundingStartTime, fundingEndTime);
     }
 
     // mints equivalent token value based on the donation to the donator
