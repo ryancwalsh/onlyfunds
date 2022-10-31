@@ -114,6 +114,10 @@ contract Project is ERC20, Ownable {
         }
     }
 
+    function metadata() external view returns(address, uint, uint, uint, uint, uint, uint) {
+        return (owner(), softCap, hardCap, minimumContribution, maximumContribution, fundingStartTime, fundingEndTime);
+    }
+
     // mints equivalent token value based on the donation to the donator
     function donate() external payable {
         require(fundingPeriod == true, "ONLYFUNDS: funding period is over");
@@ -151,7 +155,7 @@ contract Project is ERC20, Ownable {
     // partial collecting of released funds
     function collectFunds() external onlyOwner {
         require(cancelled == false, "ONLYFUNDS: project is cancelled");
-        require(fundingPeriod == true, "ONLYFUNDS: project is still being funded");
+        require(fundingPeriod == false, "ONLYFUNDS: project is still being funded");
         require(partialFundsCollectable == true, "ONLYFUNDS: no collectable funds");
 
         // reentrancysafe
@@ -187,13 +191,14 @@ contract Project is ERC20, Ownable {
         partialFundAmount = amount;
     }
 
-    // starts voting for releasing project funda after failed promises / inactive project
+    // starts voting for releasing project funds after failed promises / inactive project
     function startCancelVoting() external onlyFunders {
         _initiateVoting(VotingType.cancelVoting);
     }
 
     function _initiateVoting(VotingType _type) internal {
         require(cancelled == false, "ONLYFUNDS: project is already cancelled");
+        require(block.timestamp > fundingEndTime, "ONLYFUNDS: funding period did not end yet");
         require(_votings[_currentVoteIndex].running == false, "ONLYFUNDS: vote already running");
         require(getRemainingVotingCooldown() == 0, "ONLYFUNDS: last voting still on cooldown");
 
