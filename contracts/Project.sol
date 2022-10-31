@@ -119,8 +119,9 @@ contract Project is ERC20, Ownable {
         require(fundingPeriod == true, "ONLYFUNDS: funding period is over");
         require(block.timestamp > fundingStartTime, "ONLYFUNDS: funding period has not started yet");
         require(block.timestamp < fundingEndTime, "ONLYFUNDS: funding period exceeded but not concluded");
-        require(msg.value >= minimumContribution && msg.value <= maximumContribution, "ONLYFUNDS: amount exceeds allowed range");
-        require((getFundingBalance() + msg.value) < hardCap, "ONLYFUNDS: donation exceeds hardcap");
+        require(msg.value >= minimumContribution, "ONLYFUNDS: amount subceeds minimum contribution");
+        require((balanceOf(msg.sender) + msg.value) <= maximumContribution, "ONLYFUNDS: amount exceeds maximum contribution");
+        require(getFundingBalance() <= hardCap, "ONLYFUNDS: donation exceeds hardcap");
 
         //checks if address already donated, if not number of funders increases by 1
         if (balanceOf(msg.sender) == 0) {
