@@ -19,6 +19,8 @@ contract Factory is Ownable {
         address ownerAddress,
         uint softCap,
         uint hardCap,
+        uint minimumContribution,
+        uint maximumContribution,
         uint startTime,
         uint endTime
     ) external {
@@ -31,6 +33,8 @@ contract Factory is Ownable {
             ownerAddress,
             softCap,
             hardCap,
+            minimumContribution,
+            maximumContribution,
             startTime,
             endTime
         );

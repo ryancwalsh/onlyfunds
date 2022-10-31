@@ -41,12 +41,16 @@ contract Project is ERC20, Ownable {
         address _ownerAddress,
         uint _softCap,
         uint _hardCap,
+        uint _minimumContribution,
+        uint _maximumContribution,
         uint _fundingStartTime,
         uint _fundingEndTime
     ) ERC20("", "") {
         transferOwnership(_ownerAddress);
         softCap = _softCap;
         hardCap = _hardCap;
+        minimumContribution = _minimumContribution;
+        maximumContribution = _maximumContribution;
         fundingStartTime = _fundingStartTime;
         fundingEndTime = _fundingEndTime;
         _name = tokenName;
